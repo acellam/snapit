@@ -11,28 +11,66 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int icon=0x7f020000;
+        public static final int a_1=0x7f020000;
+        public static final int a_2=0x7f020001;
+        public static final int a_3=0x7f020002;
+        public static final int a_4=0x7f020003;
+        public static final int a_5=0x7f020004;
+        public static final int a_6=0x7f020005;
+        public static final int a_7=0x7f020006;
+        public static final int icon=0x7f020007;
     }
     public static final class id {
-        public static final int RadioImageC=0x7f060002;
-        public static final int button_camera_capture=0x7f060001;
-        public static final int menu_camera_close=0x7f060008;
-        public static final int menu_camera_settings=0x7f060007;
-        public static final int radio_high=0x7f060005;
-        public static final int radio_low=0x7f060003;
-        public static final int radio_normal=0x7f060004;
-        public static final int radio_super=0x7f060006;
-        public static final int surface_camera=0x7f060000;
+        public static final int LinearLayout01=0x7f060000;
+        public static final int RadioImageC=0x7f060005;
+        public static final int button_camera_capture=0x7f060004;
+        public static final int camera_share_facebook=0x7f06000e;
+        public static final int camera_share_twitter=0x7f06000f;
+        public static final int menu_camera_close=0x7f06000c;
+        public static final int menu_camera_settings=0x7f06000a;
+        public static final int menu_camera_share=0x7f06000d;
+        public static final int menu_camera_share_gallery=0x7f06000b;
+        public static final int radio_high=0x7f060008;
+        public static final int radio_low=0x7f060006;
+        public static final int radio_normal=0x7f060007;
+        public static final int radio_super=0x7f060009;
+        public static final int snapitGallery=0x7f060001;
+        public static final int snapitImageView=0x7f060002;
+        public static final int surface_camera=0x7f060003;
     }
     public static final class layout {
-        public static final int surface_camera=0x7f030000;
+        public static final int images=0x7f030000;
+        public static final int settings=0x7f030001;
+        public static final int surface_camera=0x7f030002;
     }
     public static final class menu {
         public static final int list_camera_options_menu=0x7f050000;
+        public static final int list_camera_options_share=0x7f050001;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
         public static final int camera_capture=0x7f040002;
         public static final int hello=0x7f040000;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a GalleryTheme.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #GalleryTheme_android_galleryItemBackground com.mistaguy.snapit:android_galleryItemBackground}</code></td><td></td></tr>
+           </table>
+           @see #GalleryTheme_android_galleryItemBackground
+         */
+        public static final int[] GalleryTheme = {
+            0x0101004c
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.mistaguy.snapit.R.attr#android_galleryItemBackground}
+          attribute's value can be found in the {@link #GalleryTheme} array.
+          @attr name android:android_galleryItemBackground
+        */
+        public static final int GalleryTheme_android_galleryItemBackground = 0;
+    };
 }

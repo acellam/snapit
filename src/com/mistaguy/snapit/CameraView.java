@@ -2,6 +2,7 @@ package com.mistaguy.snapit;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
@@ -9,6 +10,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +30,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
@@ -54,7 +55,18 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-
+/**
+ * create a folder for storing snapit pictures
+ */
+		try {
+			String newFolder = "/snapit";
+			String extStorageDirectory = Environment
+					.getExternalStorageDirectory().toString();
+			File myNewFolder = new File(extStorageDirectory + newFolder);
+			myNewFolder.mkdir();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		Log.e(TAG, "onCreate");
 
 		getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -108,27 +120,32 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 
-	 @Override
-	 public boolean onCreateOptionsMenu(Menu menu) {
-	
-	 // Inflate our menu which can gather user input for switching camera
-	 MenuInflater inflater = getMenuInflater();
-	 inflater.inflate(R.menu.list_camera_options_menu, menu);
-	 return true;
-	 }
-	  @Override
-	    public boolean onOptionsItemSelected(MenuItem item) {
-	        // Handle all of the possible menu actions.
-	        switch (item.getItemId()) {
-	        case R.id.menu_camera_close:	            
-	            finish();
-	            break;
-	     
-	        }
-	        return super.onOptionsItemSelected(item);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
 
-	    }
+		// Inflate our menu which can gather user input for switching camera
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.list_camera_options_menu, menu);
+		return true;
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle all of the possible menu actions.
+		switch (item.getItemId()) {
+		case R.id.menu_camera_close:
+			finish();
+			break;
+		case R.id.menu_camera_share_gallery:
+			Intent i = new Intent("com.mistaguy.snapit.GalleryView");
+			startActivityForResult(i, 1);
+
+			break;
+
+		}
+		return super.onOptionsItemSelected(item);
+
+	}
 
 	Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
 		public void onPictureTaken(byte[] imageData, Camera c) {
@@ -139,7 +156,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 				setResult(1);
 				mCamera.startPreview();
 				mCapture.setEnabled(true);
-				//finish();
+				// finish();
 
 			}
 		}
@@ -217,9 +234,9 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 
 	public static boolean StoreByteImage(Context mContext, byte[] imageData,
 			int quality, String expName) {
-		
-		   File sdImageMainDirectory = new File("/sdcard");
-		   
+
+		File sdImageMainDirectory = new File("/sdcard/snapit");
+
 		FileOutputStream fileOutputStream = null;
 
 		try {
@@ -232,7 +249,8 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 					imageData.length, options);
 
 			Long now = Long.valueOf(java.lang.System.currentTimeMillis());
-			fileOutputStream = new FileOutputStream(sdImageMainDirectory.toString()+"/snapit"+ now+".jpg");
+			fileOutputStream = new FileOutputStream(
+					sdImageMainDirectory.toString() + "/" + now + ".jpg");
 
 			BufferedOutputStream bos = new BufferedOutputStream(
 					fileOutputStream);
