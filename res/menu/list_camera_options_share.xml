@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  
+   <item android:id="@+id/menu_camera_share" android:title="Share">
+       <menu>
+           <item android:id="@+id/camera_share_facebook" android:title="facebook"></item>
+           <item android:id="@+id/camera_share_twitter" android:title="twitter"></item>
+       </menu>
+   </item>
+   
+</menu>
