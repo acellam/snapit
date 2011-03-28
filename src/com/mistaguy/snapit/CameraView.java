@@ -9,6 +9,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Bitmap.CompressFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -134,6 +135,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 		// Handle all of the possible menu actions.
 		switch (item.getItemId()) {
 		case R.id.menu_camera_close:
+			setResult(1);
 			finish();
 			break;
 		case R.id.menu_camera_share_gallery:
@@ -232,12 +234,16 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 
 	}
 
-	public static boolean StoreByteImage(Context mContext, byte[] imageData,
+	public  boolean StoreByteImage(Context mContext, byte[] imageData,
 			int quality, String expName) {
 
 		File sdImageMainDirectory = new File("/sdcard/snapit");
 
 		FileOutputStream fileOutputStream = null;
+		//get the intent that started this activity
+		Intent myIntent = getIntent();
+		Uri fileuri= (Uri) myIntent.getExtras().get(android.provider.MediaStore.EXTRA_OUTPUT);
+
 
 		try {
 
@@ -249,9 +255,21 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 					imageData.length, options);
 
 			Long now = Long.valueOf(java.lang.System.currentTimeMillis());
-			fileOutputStream = new FileOutputStream(
-					sdImageMainDirectory.toString() + "/" + now + ".jpg");
-
+			
+			//if the action didnt provide extras then save the images to snapit gallery
+			if(fileuri==null)
+			{
+				fileOutputStream = new FileOutputStream(
+						sdImageMainDirectory.toString() + "/" + now + ".jpg");
+				
+				
+			}else//save the picture to the intents extra path
+			{
+				String path=fileuri.getPath();
+			fileOutputStream = new FileOutputStream(path);
+			System.out.println("Given path is: " + fileuri.getPath());
+		
+			}
 			BufferedOutputStream bos = new BufferedOutputStream(
 					fileOutputStream);
 
