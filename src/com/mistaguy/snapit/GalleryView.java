@@ -51,7 +51,7 @@ public class GalleryView extends Activity{
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ImageView imgView = new ImageView(cont);
-			//imgView.setImageURI(mUrls[position]);
+			imgView.setImageURI(mUrls[position]);
 			imgView.setLayoutParams(new Gallery.LayoutParams(80, 70));
 			imgView.setScaleType(ImageView.ScaleType.FIT_XY);
 			imgView.setBackgroundResource(GalItemBg);
@@ -80,7 +80,7 @@ public class GalleryView extends Activity{
 		
         
 		imgView = (ImageView) findViewById(R.id.snapitImageView);
-		//imgView.setImageURI(mUrls[0]);
+		imgView.setImageURI(mUrls[0]);
 
 		gallery = (Gallery) findViewById(R.id.snapitGallery);		
 		gallery.setAdapter(new AddImageAdapter(this));

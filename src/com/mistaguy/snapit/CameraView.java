@@ -240,10 +240,20 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 		File sdImageMainDirectory = new File("/sdcard/snapit");
 
 		FileOutputStream fileOutputStream = null;
-		//get the intent that started this activity
-		Intent myIntent = getIntent();
-		Uri fileuri= (Uri) myIntent.getExtras().get(android.provider.MediaStore.EXTRA_OUTPUT);
-
+		Uri fileuri=null;
+		//get the intent that started this activity		
+		try
+		{
+			Intent myIntent = getIntent();
+			fileuri= (Uri) myIntent.getExtras().get(android.provider.MediaStore.EXTRA_OUTPUT);
+        
+		}//it was not called by another activity
+		catch(Exception ex)
+		{
+			
+		}
+		
+		
 
 		try {
 
